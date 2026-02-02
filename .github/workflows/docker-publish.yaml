@@ -9,32 +9,32 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
   
-  steps:
-    # 1. Scarica il codice dal repository
-    - name: Checkout code
-      uses: actions/checkout@v3
+    steps:
+      # 1. Scarica il codice dal repository
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    # 2. Configura QEMU (opzionale, per build multi-architettura)
-    - name: Set up QEMU
-      uses: docker/setup-qemu-action@v2
+      # 2. Configura QEMU (opzionale, per build multi-architettura)
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
 
-    # 3. Configura Docker Buildx (il motore di build avanzato)
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
+      # 3. Configura Docker Buildx (il motore di build avanzato)
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
-    # 4. Login su Docker Hub usando i Secrets
-    - name: Login to Docker Hub
-      uses: docker/login-action@v2
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+      # 4. Login su Docker Hub usando i Secrets
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-    # 5. Build e Push dell'immagine
-    - name: Build and push
-      uses: docker/build-push-action@v4
-      with:
-        context: .
-        push: true
-        # Sostituisci 'tuo-username' con il tuo vero username Docker Hub se vuoi hardcodarlo, 
-        # ma qui usiamo il secret per il tag dinamico o un nome fisso.
-        tags: ${{ secrets.DOCKER_USERNAME }}/my-devops-app:latest
+      # 5. Build e Push dell'immagine
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          # Sostituisci 'tuo-username' con il tuo vero username Docker Hub se vuoi hardcodarlo, 
+          # ma qui usiamo il secret per il tag dinamico o un nome fisso.
+          tags: ${{ secrets.DOCKER_USERNAME }}/my-devops-app:latest
