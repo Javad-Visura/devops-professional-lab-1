@@ -2,8 +2,8 @@ name: Build and Push Docker Image
 
 # Trigger: Quando eseguire la pipeline?
 on:
-push:
-  branches: [ "main" ]
+  push:
+    branches: [ "main" ]
 
 jobs:
   build-and-push:
